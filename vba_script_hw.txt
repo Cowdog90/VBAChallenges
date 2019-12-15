@@ -1,0 +1,102 @@
+Sub VBA_Homework()
+
+' DIM variables
+
+    Dim ws As Worksheet
+    Dim ticker As String
+    Dim nextticker As String
+    Dim volume As Double
+    Dim startprice As Double
+    Dim endprice As Double
+    Dim change As Double
+    Dim PerChange As Double
+    Dim mostup As Double
+    Dim mostDown As Double
+    Dim highVolume As Double
+    Dim lngRows As Long
+    Dim mostUpTicker As String
+    Dim mostDownTicker As String
+    
+    
+    
+    
+    
+     ' for loop to iterate through worksheets
+ 
+    For j = 1 To 7
+    
+        Worksheets(j).Activate
+        
+        volume = 0
+        mostup = 0
+        mostDown = 0
+        highVolume = 0
+        ticker = Cells(2, 1)
+        startprice = Cells(2, 6)
+    
+' for loop to see when ticker symbol changes
+
+    For i = 2 To 70926
+    
+    
+        ' get me next row for data entry
+        
+            lngRows = Cells(Rows.Count, "M").End(xlUp).Row
+        
+        'add to volume
+        
+            volume = volume + Cells(i, 7)
+            
+           
+        
+            
+        ' If the ticker symbol changes, print volume and new symbol, calculate change, and set new start price.
+            
+            If Cells(i, 1).Value <> Cells(i + 1, 1).Value Then
+        
+        ' find next row for ticker data
+        
+                  ' get me next row for data entry
+        
+                lngRows = Cells(Rows.Count, "I").End(xlUp).Row
+           
+                newticker = Cells(i + 1, 1).Value
+                Cells(lngRows + 1, "I").Value = ticker
+                Cells(lngRows + 1, "L").Value = volume
+                
+                volume = 0
+                ticker = newticker
+                
+                
+                endprice = Cells(i, 6).Value
+                change = endprice - startprice
+                    If startprice <> 0 Then PerChange = (change / startprice)
+                Cells(lngRows + 1, "J").Value = change
+                
+
+                
+                Cells(lngRows + 1, "K").Value = PerChange
+                
+                
+                
+                startprice = Cells(i + 1, 6).Value
+            
+            End If
+ 
+    
+    Next i
+    
+    Next j
+        For m = 1 To 7
+        
+        Worksheets(m).Activate
+        
+        For k = 2 To 70926
+    
+                If Cells(k, "J").Value < 0 Then Cells(i, "J").Interior.ColorIndex = 3 Else Cells(k, "J").Interior.ColorIndex = 4
+    
+                
+    
+        Next k
+        Next m
+    
