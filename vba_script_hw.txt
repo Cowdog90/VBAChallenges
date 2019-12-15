@@ -93,10 +93,12 @@ Sub VBA_Homework()
         
         For k = 2 To 70926
     
-                If Cells(k, "J").Value < 0 Then Cells(i, "J").Interior.ColorIndex = 3 Else Cells(k, "J").Interior.ColorIndex = 4
+                If Cells(k, "J").Value < 0 Then Cells(k, "J").Interior.ColorIndex = 3 Else Cells(k, "J").Interior.ColorIndex = 4
     
                 
     
         Next k
         Next m
     
+
+End Sub
